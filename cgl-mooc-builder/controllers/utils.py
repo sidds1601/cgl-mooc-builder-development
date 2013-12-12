@@ -527,6 +527,7 @@ class RegisterHandler(BaseHandler):
         organization = self.request.get('organization') #Organization
         motivation = self.request.get('motivation')     #Motivation
         privacy = self.request.get('privacy')           #Privacy
+        reference = self.request.get('reference')       #Reference
 
         Student.add_new_student_for_current_user(
             name, age, city, state, country, education, profession, organization, motivation, privacy, transforms.dumps(self.request.POST.items()))

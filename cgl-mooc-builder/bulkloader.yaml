@@ -58,3 +58,5 @@ transformers:
       external_name: motivation
     - property: privacy
       external_name: privacy
+    - property: reference
+      external_name: reference

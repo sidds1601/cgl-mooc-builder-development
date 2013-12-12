@@ -334,6 +334,20 @@
               </div>
             </li>
 
+            <li class="position-relative form-list">
+              <div data-tooltip="Reference" class="register-div">
+                <label class="gcb-reg-form-label" for="reference">How did you learn about our Course?</label>
+                <select name="reference" class="register-input" value="">
+                  <option value="" selected="selected"> --- </option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Friend">Friend</option>
+                  <option value="Search Engine">Search Engine</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </li>
+
             {% if course_info.reg_form.additional_registration_fields %}
               {{course_info.reg_form.additional_registration_fields | safe}}
             {% else %}
