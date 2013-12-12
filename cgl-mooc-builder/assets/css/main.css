@@ -1951,7 +1951,6 @@ margin-top: 7px;
 }
 .profile_email {
 	font-size: 10px;
-	
 }
 
 .course_content_span {
@@ -1959,4 +1958,11 @@ margin-top: 7px;
 	width: 468px;
 	color: yellow;
 	font-size: 12px;
+}
+
+.fb_iframe_widget {
+	left:25px;
+	top:88px;
+	vertical-align:top;
+	margin-right:8px;
 }
