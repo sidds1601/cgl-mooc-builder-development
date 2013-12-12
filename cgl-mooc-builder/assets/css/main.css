@@ -188,6 +188,7 @@ th, td {
 	height: 130px;
 	margin: auto;
 	border-top: 45px solid #003366;
+	position:relative;
 }
 #header_bg {
 }
@@ -1097,11 +1098,10 @@ img {
 }
 #progress-div {
 	float: right;
-	height: 20px;
 	width: 200px;
 	top: 58px;
 	right: 16px;
-	position: relative;
+	position: absolute;
 }
 #progress-text {
 	color: white;
