@@ -65,14 +65,18 @@ class MemcacheManager(object):
     """Class that consolidates all memcache operations."""
 
     @classmethod
-    def _get_namespace(cls, namespace):
+    def get_namespace(cls):
         """Look up namespace from namespace_manager or use default."""
-        if namespace is not None:
-            return namespace
         namespace = namespace_manager.get_namespace()
         if namespace:
             return namespace
         return appengine_config.DEFAULT_NAMESPACE_NAME
+
+    @classmethod
+    def _get_namespace(cls, namespace):
+        if namespace is not None:
+            return namespace
+        return cls.get_namespace()
 
     @classmethod
     def get(cls, key, namespace=None):
@@ -338,7 +342,7 @@ class StudentProfileDAO(object):
         return cls._add_new_profile(user_id, email)
 
     @classmethod
-    def add_new_student_for_current_user(cls, nick_name, age, city, state, country, education, profession, organization, motivation, privacy, additional_fields):
+    def add_new_student_for_current_user(cls, nick_name, age, city, state, country, education, profession, organization, motivation, privacy, reference, additional_fields):
         user = users.get_current_user()
 
         student_by_uid = Student.get_student_by_user_id(user.user_id())
@@ -348,12 +352,12 @@ class StudentProfileDAO(object):
             'Student\'s email and user id do not match.')
 
         cls._add_new_student_for_current_user(
-            user.user_id(), user.email(), nick_name, age, city, state, country, education, profession, organization, motivation, privacy, additional_fields)
+            user.user_id(), user.email(), nick_name, age, city, state, country, education, profession, organization, motivation, privacy, reference, additional_fields)
 
     @classmethod
     @db.transactional(xg=True)
     def _add_new_student_for_current_user(
-        cls, user_id, email, nick_name, age, city, state, country, education, profession, organization, motivation, privacy, additional_fields):
+        cls, user_id, email, nick_name, age, city, state, country, education, profession, organization, motivation, privacy, reference, additional_fields):
         """Create new or re-enroll old student."""
 
         # create profile if does not exist
@@ -382,6 +386,7 @@ class StudentProfileDAO(object):
         student.organization = organization
         student.motivation = motivation
         student.privacy = privacy
+        student.reference = reference
         student.additional_fields = additional_fields
 
         # put both
@@ -440,6 +445,7 @@ class Student(BaseEntity):
     organization = db.StringProperty(indexed=False) #Organization
     motivation = db.TextProperty(indexed=False)     #Motivation
     privacy = db.TextProperty(indexed=False)        #Privacy
+    reference = db.StringProperty(indexed=False)    #Reference
 
     additional_fields = db.TextProperty(indexed=False)
     is_enrolled = db.BooleanProperty(indexed=False)
@@ -477,9 +483,9 @@ class Student(BaseEntity):
         MemcacheManager.delete(self._memcache_key(self.key().name()))
 
     @classmethod
-    def add_new_student_for_current_user(cls, nick_name, age, city, state, country, education, profession, organization, motivation, privacy, additional_fields):
+    def add_new_student_for_current_user(cls, nick_name, age, city, state, country, education, profession, organization, motivation, privacy, reference, additional_fields):
         StudentProfileDAO.add_new_student_for_current_user(
-            nick_name, age, city, state, country, education, profession, organization, motivation, privacy, additional_fields)
+            nick_name, age, city, state, country, education, profession, organization, motivation, privacy, reference, additional_fields)
 
     @classmethod
     def get_by_email(cls, email):
