@@ -555,6 +555,8 @@ function renderAssessment(assessment, domRoot) {
         }
         curLI.append(textarea);
 
+		$("#q"+questionNum).ckeditor();//CKEditor
+
       } else {
         curLI.append('Answer:&nbsp;&nbsp;');
 
@@ -720,11 +722,6 @@ function renderAssessment(assessment, domRoot) {
     // Show a confirmation message when submitting a human-reviewed asseessment,
     // since this action is non-reversible.
     if (!assessmentGlobals.isReviewForm && assessmentGlobals.grader == 'human') {
-	  //https://docs.google.com/
-	  if (!($("#assessmentContents input").val().substr(0, 24) == "https://docs.google.com/")) {
-        alert("Please submit a link of Google Docs. It should start with https://docs.google.com/document/.");
-		return;
-	  }
       if (!window.confirm(
         trans.SUBMIT_ASSIGNMENT_CONFIRMATION + trans.CONFIRMATION_EXPLANATION)) {
         return;

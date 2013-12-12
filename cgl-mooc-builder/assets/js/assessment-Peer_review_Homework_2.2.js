@@ -4,7 +4,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: "<p>According to IDC, <a href='http://www.emc.com/collateral/analyst-reports/idc-extracting-value-from-chaos-ar.pdf' target='_blank'>http://www.emc.com/collateral/analyst-reports/idc-extracting-value-from-chaos-ar.pdf</a> ''Extracting Value from Chaos'' 8 zettabytes of data will be stored and shared in 2015. A zettabyte is a million petabytes. Discuss where such a huge amount of data could come from. Compare the increase with time of total data stored with Moore's law of growth in transistor count - a factor of 2 every 2 years.</p>",
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],

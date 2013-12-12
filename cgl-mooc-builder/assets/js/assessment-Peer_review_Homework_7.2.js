@@ -4,7 +4,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: "<p>Consider any 5 cloud or cloud like activities from list of 10 below. Describe the ones you chose and explain what ways they could be used to support an X-Informatics field for some X.</p><ul><li>http://aws.amazon.com</li><li>http://www.windowsazure.com/en-us</li><li>https://cloud.google.com/products/compute-engine</li><li>https://portal.futuregrid.org</li><li>http://joyent.com</li><li>http://www.penguincomputing.com/services/hpc-cloud</li><li>http://www.rackspace.com/cloud</li><li>http://www.salesforce.com/cloudcomputing</li><li>http://earthengine.google.org</li><li>http://www.openstack.org</li></ul>",
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],

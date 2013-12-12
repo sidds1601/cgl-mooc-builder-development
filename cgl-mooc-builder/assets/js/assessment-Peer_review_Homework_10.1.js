@@ -4,7 +4,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: '<p>Describe (in about half a page) aspects of Privacy and Cloud Computing applied to Health Informatics</p>',
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],

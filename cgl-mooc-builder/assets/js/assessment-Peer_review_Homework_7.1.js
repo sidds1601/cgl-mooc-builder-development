@@ -4,7 +4,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: '<p>Consider the report <a href="/assets/files/Hype_Cycle_for_Big_Data_2012.pdf">Hype Cycle for Big Data 2012.pdf</a> from Gartner on Big Data. Independent of Hype, chose your top 5 items and explain why they are important.</p>',
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],

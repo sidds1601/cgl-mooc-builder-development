@@ -4,7 +4,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: '<p>Humane Society Problem from current Mid Term Assessment</p>',
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],

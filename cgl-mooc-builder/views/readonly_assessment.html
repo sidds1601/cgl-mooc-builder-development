@@ -12,15 +12,16 @@
                 <label class="student-answer" for="readonly-{{outer_loop.index0}}-{{loop.index0}}">{{ choice }}</label>
     		{% endfor %}
 	    {% else %}
-    		{% if readonly_assessment['answers'][outer_loop.index0][0:33] == "https://docs.google.com/document/" %}
-		    	<b>Answer:</b>
-			    <br>
-			    <p class="student-answer"><a href="{{ readonly_assessment['answers'][outer_loop.index0] }}" target="_blank">{{ readonly_assessment['answers'][outer_loop.index0] }}</a></p>
-		    {% else %}
-			    <b>Answer:</b>
-			    <br>
-			    <p class="student-answer">{{ readonly_assessment['answers'][outer_loop.index0] }}</p>
-		    {% endif %}
+            <b>Answer:</b>
+            <br>
+            <textarea class="student-answer readonly-editor">{{ readonly_assessment['answers'][outer_loop.index0] }}</textarea>
+            <script>
+			$(".readonly-editor").ckeditor(
+				function() {},
+				{
+				readOnly: 'true',
+				});
+			</script>
 	    {% endif %}
     	<br><br>
 	    </li>

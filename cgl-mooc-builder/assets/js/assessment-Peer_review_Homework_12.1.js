@@ -3,7 +3,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: '<p>Describe (in about half a page) how the data deluge is or could be used to understand Climate Change</p>',
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],

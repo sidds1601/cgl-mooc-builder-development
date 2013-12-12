@@ -4,7 +4,7 @@ var assessment = {
 
   questionsList: [
     {questionHTML: '<p>List 5 applications areas (values of X in X-Informatics with examples) that you find most interesting</p>',
-	 multiLine: false,
+	 multiLine: true,
      correctAnswerRegex: /.*/i
     },
   ],
