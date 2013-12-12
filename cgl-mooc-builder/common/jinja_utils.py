@@ -17,11 +17,19 @@
 __author__ = 'John Orr (jorr@google.com)'
 
 import jinja2
+from models import config
+from models import models
 from webapp2_extras import i18n
 from models.models import MemcacheManager
 import safe_dom
 import tags
 from jinja2.bccache import BytecodeCache
+
+
+CAN_USE_JINJA2_TEMPLATE_CACHE = config.ConfigProperty(
+    'gcb_can_use_jinja2_template_cache', bool, safe_dom.Text(
+        'Whether jinja2 can cache bytecode of compiled templates in memcache.'),
+    default_value=True)
 
 
 def finalize(x):
@@ -116,19 +124,34 @@ class ClearableMemcachedBytecodeCache(BytecodeCache):
             if not self.ignore_memcache_errors:
                 raise
 
-def get_template(template_name, dirs, locale=None, handler=None):
-    """Sets up an environment and gets jinja template."""
+def create_jinja_environment(loader, locale=None):
+    """Create proper jinja environment."""
+
+    cache = None
+    if CAN_USE_JINJA2_TEMPLATE_CACHE.value:
+        prefix = 'jinja2:bytecode:%s:/' % models.MemcacheManager.get_namespace()
+        cache = jinja2.MemcachedBytecodeCache(
+            models.MemcacheManager, timeout=models.DEFAULT_CACHE_TTL_SECS,
+            prefix=prefix)
 
     jinja_environment = jinja2.Environment(
-        autoescape=True, finalize=finalize,
-        extensions=['jinja2.ext.i18n'],
-		bytecode_cache=ClearableMemcachedBytecodeCache(MemcacheManager),
-        loader=jinja2.FileSystemLoader(dirs))
+        autoescape=True, finalize=finalize, extensions=['jinja2.ext.i18n'],
+        bytecode_cache=cache, loader=loader)
+
     jinja_environment.filters['js_string'] = js_string
-    jinja_environment.filters['gcb_tags'] = get_gcb_tags_filter(handler)
 
     if locale:
         i18n.get_i18n().set_locale(locale)
         jinja_environment.install_gettext_translations(i18n)
+
+    return jinja_environment
+
+def get_template(template_name, dirs, locale=None, handler=None):
+    """Sets up an environment and gets jinja template."""
+
+    jinja_environment = create_jinja_environment(
+        jinja2.FileSystemLoader(dirs), locale=locale)
+
+    jinja_environment.filters['gcb_tags'] = get_gcb_tags_filter(handler)
 
     return jinja_environment.get_template(template_name)
