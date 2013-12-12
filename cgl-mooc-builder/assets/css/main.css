@@ -1552,6 +1552,7 @@ div.inputEx-Field {
 .instructor {
 	float: left;
 	width: 420px;
+	padding-bottom:16px;
 }
 .instructors-pic {
 	width: 171px;
