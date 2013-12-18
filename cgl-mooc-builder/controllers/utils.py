@@ -526,11 +526,11 @@ class RegisterHandler(BaseHandler):
         profession = self.request.get('profession')     #Profession
         organization = self.request.get('organization') #Organization
         motivation = self.request.get('motivation')     #Motivation
+        referral = self.request.get('referral')         #Referral
         privacy = self.request.get('privacy')           #Privacy
-        reference = self.request.get('reference')       #Reference
 
         Student.add_new_student_for_current_user(
-            name, age, city, state, country, education, profession, organization, motivation, privacy, transforms.dumps(self.request.POST.items()))
+            name, age, city, state, country, education, profession, organization, motivation, referral, privacy, transforms.dumps(self.request.POST.items()))
 
         # send a notification email
         sender_address = "MOOCbuilder <test@example.com>"
