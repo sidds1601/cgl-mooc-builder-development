@@ -514,7 +514,16 @@ class UnitLessonCompletionTracker(object):
                 if score is not None:
                     u_progress_score += score
         #progress score = 50% of assessment progress + 50% of unit progress
-        t = float(a_progress_score) / a_completed_score * 50 + float(u_progress_score) / u_completed_score * 50
+        #avoid division by zero
+        if a_completed_score == 0 and u_completed_score == 0:
+            t = 100
+        elif a_completed_score == 0 and u_completed_score != 0:
+            t = float(u_progress_score) / u_completed_score * 100
+        elif a_completed_score != 0 and u_completed_score == 0:
+            t = float(a_progress_score) / a_completed_score * 100
+        else:
+            t = float(a_progress_score) / a_completed_score * 50 + float(u_progress_score) / u_completed_score * 50
+        
         result['progress_score'] = t
         result['completed_score'] = 100
         result['percentage'] = "{0:.0f}%".format(t)
